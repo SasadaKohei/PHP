@@ -1,8 +1,12 @@
 <div>
     <h3>Index Page</h3>
     <p><?= $message ?></p>
-    <form method="post" action="/helo/index">
-    <input type="text" name="text1">
-    <input type="submit">
+    <?=$this->Form->create(null, [
+        'type' => 'post',
+        'url' => ['Controller' => 'Helo', 'action' => 'index']]
+    )?>
+    <?=$this->Form->text('text1') ?>
+    <?=$this->Form->submit('送信') ?>
+    <?=$this->Form->end() ?>
     </form>
 </div>

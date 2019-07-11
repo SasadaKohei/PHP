@@ -9,7 +9,19 @@ class HeloController extends AppController
 //    public function index($a = '')
     public function index()
     {
-        $this->set('message', 'Hello! this is sample page ;-');
+        $id = $this->request->query('id');
+        $name = $this->request->query('name');
+        $this->set('message', 'your id:'.$id. ', name :'.$name);
+
+        $str = $this->request->data('text1');
+        if ($str != null) { //フォーム送信時
+            $str = $this->request->data['text1'];
+            $this->set('message', 'you typed: ' . $str);
+        } else { //通常アクセス時
+            $this->set('message', 'please type...');
+        }
+
+//        $this->set('message', 'Hello! this is sample page ;-');
 //        if ($a == ''){
 //            $this -> setAction('err');
 //            return;
