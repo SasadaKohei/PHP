@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property int|null $age
- * @property int|null $mail
+ * @property string|null $mail
  */
 class Person extends Entity
 {
@@ -23,7 +23,7 @@ class Person extends Entity
      * @var array
      */
     protected $_accessible = [
-        '*'=>true,
-        'id'=> false,
+        '*' => true,
+        'id' => false
     ];
 }

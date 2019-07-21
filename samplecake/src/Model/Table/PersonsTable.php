@@ -30,9 +30,9 @@ class PersonsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('persons');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('persons');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
     }
 
     /**
@@ -44,19 +44,21 @@ class PersonsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create');
+            ->integer('id')
+            ->allowEmptyString('id', 'create');
 
         $validator
+            ->scalar('name')
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->notEmptyString('name');
 
         $validator
-            ->add('age', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('age');
+            ->integer('age')
+            ->allowEmptyString('age');
 
         $validator
-            ->allowEmpty('mail');
+            ->scalar('mail')
+            ->allowEmptyString('mail');
 
         return $validator;
     }
