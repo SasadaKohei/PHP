@@ -23,8 +23,7 @@ class Person extends Entity
      * @var array
      */
     protected $_accessible = [
-        'name' => true,
-        'age' => true,
-        'mail' => true
+        '*'=>true,
+        'id'=> false,
     ];
 }
