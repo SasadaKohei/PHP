@@ -7,6 +7,6 @@
         <p>AGE: <?= h($person->age); ?></p>
         <p>MAIL: <?= h($person->mail); ?></p>
     </fieldset>
-    <$= $this->Form->button('Submit') ?>
-    <$= $this->Form->end() ?>
+    <?= $this->Form->button('Submit') ?>
+    <?= $this->Form->end() ?>
 </div>
