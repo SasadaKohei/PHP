@@ -1,7 +1,7 @@
 <div>
     <h3>Find Person</h3>
     <?= $msg ?>
-    <?= $this->From->create() ?>
+    <?= $this->Form->create() ?>
     <fieldset>
         <?= $this->Form->input('find'); ?>
         <?= $this->Form->button('Submit') ?>

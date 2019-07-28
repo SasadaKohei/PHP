@@ -44,9 +44,9 @@ class PersonsController extends AppController
     public function delete($id = null)
     {
         $person = $this->Persons->get($id);
-        if ($this->request->is(['post', 'put'])){
-            if ($this ->Persons->delete($person)){
-                return $this->redirect(['action'=>'index']);
+        if ($this->request->is(['post', 'put'])) {
+            if ($this->Persons->delete($person)) {
+                return $this->redirect(['action' => 'index']);
             }
         } else {
             $this->set('person', $person);
@@ -54,13 +54,21 @@ class PersonsController extends AppController
     }
 
 //    レコードの検索
-    public function find(){
-        $persons = [];
-        if ($this->request->is('post')){
+    public function find()
+    {
+        $this->set('msg', null);
+//        $persons = [];
+        if ($this->request->is('post')) {
             $find = $this->request->data['find'];
             $persons = $this->Persons->find()
-                ->where(["name like " => '%'.$find.'%']);
-        }   $this->set('msg', null);
+//                idとnameを取り出して、name順に並べ替えて表示
+                ->select(['id', 'name'])    //select : 取り出すいフィールドを指定する
+                ->order(['name', 'Asc'])    //order : 並び順を指定する(「Asc」昇順(小さいものから順に並べる)、「Desc」降順(大きいものから並べる))
+                ->where(["name like " => '%' . $find . '%']);
+        } else {
+            $persons = [];
+        }
+//        $this->set('msg', null);
         $this ->set('persons',$persons);
     }
 }
