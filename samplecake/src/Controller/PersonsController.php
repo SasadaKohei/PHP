@@ -8,6 +8,7 @@ use App\Controller\AppController;
 
 class PersonsController extends AppController
 {
+//    データベースに新規登録
     public function add()
     {
         if ($this->request->is('post')) {
@@ -19,11 +20,13 @@ class PersonsController extends AppController
         }
     }
 
+//      データベースから全レコードをエンティティ配列として取得
     public function index()
     {
         $this->set('persons', $this->Persons->find('all'));
     }
 
+//    データベースを登録
     public function edit($id = null)
     {
         $person = $this->Persons->get($id);
@@ -37,6 +40,7 @@ class PersonsController extends AppController
         }
     }
 
+//    データベースからデータを削除
     public function delete($id = null)
     {
         $person = $this->Persons->get($id);
@@ -47,5 +51,16 @@ class PersonsController extends AppController
         } else {
             $this->set('person', $person);
         }
+    }
+
+//    レコードの検索
+    public function find(){
+        $persons = [];
+        if ($this->request->is('post')){
+            $find = $this->request->data['find'];
+            $persons = $this->Persons->find()
+                ->where(["name like " => '%'.$find.'%']);
+        }   $this->set('msg', null);
+        $this ->set('persons',$persons);
     }
 }
