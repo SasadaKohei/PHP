@@ -57,18 +57,18 @@ class PersonsController extends AppController
     public function find()
     {
         $this->set('msg', null);
-//        $persons = [];
         if ($this->request->is('post')) {
             $find = $this->request->data['find'];
+            $first = $this->Persons->find()
+                ->limit(1)  //limit : 指定した数だけデータを取り出す
+                ->where(["name like" => '%' . $find . '%']);
             $persons = $this->Persons->find()
-//                idとnameを取り出して、name順に並べ替えて表示
-                ->select(['id', 'name'])    //select : 取り出すいフィールドを指定する
-                ->order(['name', 'Asc'])    //order : 並び順を指定する(「Asc」昇順(小さいものから順に並べる)、「Desc」降順(大きいものから並べる))
-                ->where(["name like " => '%' . $find . '%']);
-        } else {
-            $persons = [];
+                ->offset(1) //offset :「○○番目」からデータを取り出す
+                ->limit(3)
+                ->where(["name like" => '%'.$find.'%']);
+        }else{
+            $persons=[];
         }
-//        $this->set('msg', null);
-        $this ->set('persons',$persons);
+        $this->set('persons', $persons);
     }
 }
