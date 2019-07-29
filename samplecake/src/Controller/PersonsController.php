@@ -55,14 +55,17 @@ class PersonsController extends AppController
 
 //    レコードの検索
     public function find() {
-        $this->set('msg', null);
         $persons = [];
         if ($this->request->is('post')) {
             $find = $this->request->data['find'];
-            $persons = $this->Persons->find()
-                ->where(["name like " => '%' . $find . '%'])
-                ->orWhere(["mail like " => '%' . $find . '%']);
+            $query = $this->Persons->find();
+            $exp = $query->newExpr();
+            $fnc = function($exp, $find) {
+                return $exp->gte('age', $find * 1);
+            };
+            $persons = $query->where($fnc($exp,$find));
         }
         $this->set('persons', $persons);
+        $this->set('msg', null);
     }
 }
